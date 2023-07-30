@@ -97,6 +97,7 @@ async def chat(messages: List[Message], state: dict = None):
     if type(response) is tuple:
         bot_response, new_state = response
         return {
+            "individual_response":messages,
             "botResponse": {"content": bot_response, "role": "assistant"},
             "newState": new_state,
         }

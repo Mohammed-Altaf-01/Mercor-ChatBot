@@ -1,10 +1,13 @@
 import openai
-
 from textbase.message import Message
 
 
 class OpenAI:
     api_key = None
+
+    @staticmethod
+    def init_model(model = 'gpt-3.5-turbo'):
+        pass
 
     @classmethod
     def generate(
