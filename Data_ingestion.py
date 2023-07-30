@@ -20,22 +20,23 @@ logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(name)s - %(leve
 @log_to_termianal
 def vectore_db():
 
-    logging.info("Loading the Data From Knowledge Base")
+    logging.info("Reading and Loading the Data From Knowledge Base")
     loader = PyPDFDirectoryLoader(DATA_PATH)
     docs = loader.load()
 
     logging.info("Starting the Splitting of the characters ")
     text_splitter = RecursiveCharacterTextSplitter(chunk_size = 500, chunk_overlap = 100)
     texts = text_splitter.split_documents(docs)
-    logging.info(f"loaded the data and splitted it! size of the splitted text is {len(texts)}")
+    logging.info(f"splitted the Data and size of the splitted text is {len(texts)}, {type(texts)}")
 
 
     logging.info("Calling the Sentence Transformer model")
-    embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformer/all-MiniLM-L6-v2', model_kwargs = {'device':'cpu'}) # using cpu due to device constarints
-
+    embeddings = HuggingFaceEmbeddings(model_name = 'sentence-transformers/all-MiniLM-L6-v2', model_kwargs = {'device':'cpu'}) # using cpu due to device constarints
+    
     logging.info("Writing the Embedding to FAISS")
     db = FAISS.from_documents(texts,embeddings)
     db.save_local(DB_FAISS_PATH)
+    logging.info("Sucessfullly written the Embeddings !")
 
 
 if __name__ == '__main__':
