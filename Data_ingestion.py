@@ -1,3 +1,9 @@
+"""
+With the help of the data collected in the form of pdf's available in the knowledge base folder, 
+Vectore store has been created which would be helpful to provide users with useful information regrading there mental health and provide them with the solution 
+
+"""
+
 import logging 
 
 
@@ -19,6 +25,8 @@ logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(name)s - %(leve
 
 @log_to_termianal
 def vectore_db():
+    """This function reads the available data and convert it into an vector store using HuggingFace Sentence Transformers """
+    
 
     logging.info("Reading and Loading the Data From Knowledge Base")
     loader = PyPDFDirectoryLoader(DATA_PATH)

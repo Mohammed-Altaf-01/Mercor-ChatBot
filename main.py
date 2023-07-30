@@ -16,10 +16,12 @@ DB_FAISS_PATH = 'VectorStores/db_faiss'
 
 
 # Prompt for GPT-3.5 Turbo
-SYSTEM_PROMPT= """ Using the following pieces of information, answer the users query. If the question asked by the user is very general and doesn't relate to any conditions given in the context return an appropriate answer
-don't try to makeup an answer. 
 
+SYSTEM_PROMPT = """" Consider your self a mental illness expert, who is able to cure and suggest helpful information to others based onther input condition, 
+Based on the below user's question answer them to best of your extent and provide them with valuable suggestions and medications if neccessary
 """
+
+
 
 @log_to_termianal
 @textbase.chatbot("talking-bot")
@@ -55,7 +57,7 @@ def on_message(message_history: List[Message], state):
     
     models.OpenAI.api_key = config['OPENAI_API_KEY']
     bot_response = models.OpenAI.generate(
-        system_prompt=SYSTEM_PROMPT + res,
+        system_prompt=SYSTEM_PROMPT ,
         message_history=message_history,
         model="gpt-3.5-turbo",
         temperature=0.5
@@ -64,5 +66,3 @@ def on_message(message_history: List[Message], state):
     return bot_response, state
 
 
-if __name__ == '__main__':
-    pass
